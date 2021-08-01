@@ -1,0 +1,19 @@
+.button{
+    background: $light-blue;
+    border: none;
+    color: white;
+    display: inline-block;
+    font-size: $font-size-large;
+    font-weight: 300;
+    line-height: 1;
+    padding: $s-size;
+    text-decoration: none;
+}
+
+.button__logout{
+    background: none
+}
+
+.button__secondary {
+    background: #888888;
+}
