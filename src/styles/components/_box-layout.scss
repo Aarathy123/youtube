@@ -10,10 +10,10 @@
   justify-content: flex-end;
   background-size: cover;
   align-items: center;
-  @media (max-width: $desktop-breakpoint) {
+  @media (min-width: $desktop-breakpoint) {
     padding: $xl-size;
   }
-  @media (min-width: $desktop-breakpoint) {
+  @media (max-width: $desktop-breakpoint) {
     padding: 1rem;
   }
 }

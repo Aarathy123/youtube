@@ -10,7 +10,7 @@
 }
 
 .login-page__checkbox {
-  @media (max-width: $desktop-breakpoint) {
+  @media (min-width: $desktop-breakpoint) {
     padding-right: $s-size;
   }
 }
@@ -43,7 +43,7 @@
   border-radius: 0.2em;
   font-size: 16px;
   color: #fff;
-  @media (min-width: $desktop-breakpoint) {
+  @media (max-width: $desktop-breakpoint) {
     width: 95%;
   }
 }
