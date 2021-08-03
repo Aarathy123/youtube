@@ -10,7 +10,9 @@
 }
 
 .login-page__checkbox {
-  padding-right: $s-size;
+  @media (max-width: $desktop-breakpoint) {
+    padding-right: $s-size;
+  }
 }
 
 .login-page__flexDiv {
@@ -41,6 +43,9 @@
   border-radius: 0.2em;
   font-size: 16px;
   color: #fff;
+  @media (min-width: $desktop-breakpoint) {
+    width: 95%;
+  }
 }
 .loginBtn:before {
   content: "";
