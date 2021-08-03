@@ -13,6 +13,9 @@
   @media (max-width: $desktop-breakpoint) {
     padding: $xl-size;
   }
+  @media (min-width: $desktop-breakpoint) {
+    padding: 1rem;
+  }
 }
 
 .box-layout__box {
