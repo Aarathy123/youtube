@@ -1,18 +1,29 @@
-.header{
-    background: $dark-blue;
+.header {
+  background: cornsilk;
 }
 
-.header__title{
-    color: white;
-    text-decoration: none;
-    h1{
-        margin: 0;
-    }
+.header__title {
+  text-decoration: none;
+  display: flex;
+  h1 {
+    margin: 0;
+    padding-left: $s-size;
+  }
 }
 
-.header__content{
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: $s-size 0;
+.header__content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: $s-size 0;
+}
+
+.header__titlepic {
+  width: 4rem;
+  height: 4rem;
+  margin-top: 0.7rem;
+}
+
+.header__upload {
+  padding-left: 100rem;
 }

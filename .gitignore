@@ -5,3 +5,5 @@ public/style.css
 public/style.css.map
 .env.test
 .env.development
+webpack.config.js
+src/firebase/firebase.js
