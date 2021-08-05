@@ -2,3 +2,89 @@
   width: 500px;
   height: 500px;
 }
+
+.video__format {
+  background-color: fade-out($color: white, $amount: 0.7);
+  width: 100%;
+  border-radius: 1rem;
+  border-color: azure;
+}
+
+.video__id {
+  background-color: fade-out($color: red, $amount: 0.7);
+}
+
+.video__title {
+  width: 40%;
+  height: 5rem;
+  border-radius: 1rem;
+  border-color: azure;
+}
+
+.video__fullPage {
+  background-image: linear-gradient(
+      rgba(255, 255, 255, 0.5),
+      rgba(255, 255, 255, 0.5)
+    ),
+    url(/images/addVideo.jpg);
+  height: 660px;
+}
+
+.video__url {
+  padding: 1.2rem;
+  padding-right: 0;
+  display: flex;
+  justify-content: center;
+}
+
+.video__videoId {
+  width: 15%;
+  border-radius: 1rem;
+  border-color: azure;
+}
+
+.video__details {
+  padding-left: 2rem;
+  width: 32%;
+  @media (max-width: $desktop-breakpoint) {
+    width: 72%;
+  }
+}
+
+.video__description {
+  width: 30%;
+  height: 10rem;
+  border-radius: 1rem;
+  border-color: azure;
+  @media (max-width: $desktop-breakpoint) {
+    width: 72%;
+  }
+}
+
+.video__visibility {
+  padding: 1.2rem;
+  background-color: fade-out($color: white, $amount: 0.5);
+}
+
+.video__privatePublic {
+  padding-left: 3rem;
+}
+
+.video__videoVerification {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.video__question {
+  font-weight: 900;
+  color: black;
+  background-color: fade-out($color: white, $amount: 0.4);
+  padding-left: 3rem;
+  font-size: large;
+}
+
+.video__save {
+  text-align: right;
+  padding: 3rem;
+}

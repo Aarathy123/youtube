@@ -2,102 +2,144 @@ import React, { useState } from "react";
 
 const NewVideoPage = () => {
   const [videoUrl, setVideoUrl] = useState("");
-  const [displayURl, setDisplayUrl] = useState("");
-  const getVideoLink = (url) => {
-    if (url.target.value && url.target.value.indexOf("watch?v=") !== -1) {
-      url = url.target.value;
-      let video = url.split("watch?v=");
-      url = `${video[0]}embed/${video[1]}?wmode=opaque&autohide=1&enablejsapi=1`;
+  const [displayUrl, setDisplayUrl] = useState("");
+  const [title, setTitle] = useState("");
+  const [description, setDescription] = useState("");
+  const [isPrivate, setIsPrivate] = useState(false);
+  const [isPublic, setIsPublic] = useState(true);
+  const getVideoLink = (e) => {
+    let url = "";
+    if (e) {
+      url = `https://www.youtube.com/embed/${e}?wmode=opaque&autohide=1&enablejsapi=1`;
       setVideoUrl(url);
-      setDisplayUrl(url);
+      setDisplayUrl(e);
     } else {
       setVideoUrl("");
       setDisplayUrl("");
     }
   };
+  const setVisibility = (value, type) => {
+    switch (type) {
+      case "private":
+        setIsPrivate(value);
+        setIsPublic(false);
+        break;
+      case "public":
+        setIsPublic(value);
+        setIsPrivate(false);
+    }
+  };
+  const saveData = () => {
+    if (!title) {
+      setTitle(prompt("No title specified! Please give a title"));
+    }
+    if (!videoUrl) {
+      getVideoLink(prompt("No video id specified! Please give a video Id"));
+    }
+    if (!description) {
+      setDescription(
+        prompt("No description specified! Please give a description")
+      );
+    }
+  };
   return (
-    <div
-      style={{
-        backgroundImage:
-          'linear-gradient(rgba(255, 255, 255, 0.5),rgba(255, 255, 255, 0.5)),url("/images/addVideo.jpg")',
-        height: "660px",
-      }}
-    >
-      <div>
-        <h3 style={{ textAlign: "center" }}>Add New Video</h3>
-        <div style={{ textAlign: "center" }}>
-          <div
-            style={{
-              padding: "1.2rem",
-            }}
-          >
-            <input
+    <div className="video__fullPage">
+      <form>
+        <div>
+          <h3 style={{ textAlign: "center" }}>Add New Video</h3>
+          <div style={{ textAlign: "center" }}>
+            <div
               style={{
-                width: "40%",
-                height: "5rem",
-                borderRadius: "1rem",
-                borderColor: "azure",
+                padding: "1.2rem",
               }}
-              type="text"
-              placeholder="Title"
-            />
-          </div>
-          <div style={{ padding: "1.2rem" }}>
-            <input
-              style={{
-                width: "40%",
-                width: "40%",
-                height: "5rem",
-                borderRadius: "1rem",
-                borderColor: "azure",
-              }}
-              type="text"
-              placeholder="Video URL"
-              onBlur={getVideoLink}
-            />
-          </div>
-          <div style={{ padding: "1.2rem" }}>
-            <textarea
-              style={{
-                width: "40%",
-                width: "40%",
-                height: "10rem",
-                borderRadius: "1rem",
-                borderColor: "azure",
-              }}
-              placeholder="Description"
-            />
-          </div>
-          <div style={{ padding: "1.2rem" }}>
-            <div>
-              <input type="checkbox" /> Private
+            >
+              <input
+                className="video__title"
+                type="text"
+                placeholder="Title"
+                value={title}
+                onBlur={(e) => setTitle(e.target.value)}
+              />
             </div>
-            <div>
-              <input type="checkbox" /> Public
+            <div className="video__url">
+              <input
+                className="video__videoId"
+                type="text"
+                placeholder="Video ID"
+                value={displayUrl}
+                onChange={(e) => setDisplayUrl(e.target.value)}
+                onBlur={(e) => getVideoLink(e.target.value)}
+              />
+              <div className="video__details">
+                <div className="video__format">
+                  <div>
+                    Youtube Url: https://www.youtube.com/watch?v=
+                    <span className="video__id">xxxxxxxx</span>
+                  </div>
+                  <div>
+                    Youtube Short Url: https://youtu.be/
+                    <span className="video__id">xxxxxxxx</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div className="video__url">
+              <textarea
+                className="video__description"
+                placeholder="Description"
+                value={description}
+                onBlur={(e) => setDescription(e.target.value)}
+              />
+              <div className="video__privatePublic">
+                <div className="video__visibility">
+                  <input
+                    type="checkbox"
+                    checked={isPrivate}
+                    onChange={(e) => setVisibility(e.target.checked, "private")}
+                  />{" "}
+                  Private
+                </div>
+                <div className="video__visibility">
+                  <input
+                    type="checkbox"
+                    checked={isPublic}
+                    onChange={(e) => setVisibility(e.target.checked, "public")}
+                  />{" "}
+                  Public
+                </div>
+              </div>
             </div>
           </div>
+          <div className="wrapper">
+            <div className="icon facebook">
+              <div className="tooltip">Save</div>
+              <span onClick={saveData}>Save</span>
+            </div>
+          </div>
+          {videoUrl && (
+            <div className="video__videoVerification">
+              <div>
+                <iframe
+                  className="youtube-player"
+                  style={{
+                    width: "280px",
+                    height: "250px",
+                    boxShadow: "3px 9px 5px grey",
+                  }}
+                  onerror={() => alert("Invalid")}
+                  id="player"
+                  type="text/html"
+                  src={videoUrl}
+                  frameBorder="0"
+                ></iframe>
+              </div>
+              <div className="video__question">
+                Is this your video ?&nbsp;&nbsp;&nbsp;
+              </div>
+            </div>
+          )}
         </div>
-
-        {videoUrl && (
-          <div>
-            Is this your video ?{" "}
-            <span>
-              <iframe
-                className="youtube-player"
-                style={{
-                  width: "300px",
-                  height: "300px",
-                  boxShadow: "2px 2px 5px grey",
-                }}
-                id="player"
-                type="text/html"
-                src={videoUrl}
-                frameBorder="0"
-              ></iframe>
-            </span>
-          </div>
-        )}
-      </div>
+      </form>
     </div>
   );
 };
