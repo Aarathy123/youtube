@@ -126,7 +126,6 @@ const NewVideoPage = () => {
                     height: "250px",
                     boxShadow: "3px 9px 5px grey",
                   }}
-                  onerror={() => alert("Invalid")}
                   id="player"
                   type="text/html"
                   src={videoUrl}
