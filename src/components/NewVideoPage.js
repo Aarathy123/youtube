@@ -58,7 +58,7 @@ const NewVideoPage = () => {
                 type="text"
                 placeholder="Title"
                 value={title}
-                onBlur={(e) => setTitle(e.target.value)}
+                onChange={(e) => setTitle(e.target.value)}
               />
             </div>
             <div className="video__url">
@@ -88,7 +88,7 @@ const NewVideoPage = () => {
                 className="video__description"
                 placeholder="Description"
                 value={description}
-                onBlur={(e) => setDescription(e.target.value)}
+                onChange={(e) => setDescription(e.target.value)}
               />
               <div className="video__privatePublic">
                 <div className="video__visibility">
