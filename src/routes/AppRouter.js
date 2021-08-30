@@ -5,6 +5,7 @@ import LoginPage from "../components/LoginPage";
 import NotFoundPage from "../components/NotFoundPage";
 import DashboardPage from "../components/DashboardPage";
 import NewVideoPage from "../components/NewVideoPage";
+import SignUpPage from "../components/SignUpPage";
 import PrivateRoute from "./PrivateRoute";
 import PublicRoute from "./PublicRoute";
 
@@ -15,6 +16,7 @@ const AppRouter = () => (
     <div>
       <Switch>
         <PublicRoute path="/" exact component={LoginPage} />
+        <PublicRoute path="/signup" exact component={SignUpPage} />
         <PrivateRoute path="/dashboard" component={DashboardPage} />
         <PrivateRoute path="/newVideo" component={NewVideoPage} />
         <Route component={NotFoundPage} />

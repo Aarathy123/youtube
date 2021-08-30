@@ -8,11 +8,26 @@
 .login-page__enclose {
   padding: $s-size;
 }
-
+.login-page__strength {
+  margin: 1rem 1rem 0 2rem;
+}
 .login-page__checkbox {
   @media (min-width: $desktop-breakpoint) {
     padding-right: $s-size;
   }
+}
+.login-page__password-enclose {
+  padding: $s-size;
+  display: flex;
+}
+.login-page__password {
+  width: 70% !important;
+  display: table !important;
+  margin-left: 5% !important;
+}
+
+.login-page__userPresent {
+  border: red solid 0.4rem;
 }
 
 .login-page__flexDiv {

@@ -25,6 +25,9 @@ export const logout = () => ({
 
 export const startLogout = () => {
   return () => {
-    return firebase.auth().signOut();
+    firebase.auth().signOut();
+    window.location = "/";
+    sessionStorage.removeItem("userId");
+    return;
   };
 };

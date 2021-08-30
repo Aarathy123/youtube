@@ -1,8 +1,15 @@
-import React from "react";
+import React, { useState } from "react";
 import { startGoogleLogin, startFacebookLogin } from "../actions/auth";
+import { startCheckLogin } from "../actions/users";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
-export const LoginPage = ({ startGoogleLogin, startFacebookLogin }) => {
+export const LoginPage = ({
+  startGoogleLogin,
+  startFacebookLogin,
+  startCheckLogin,
+}) => {
+  const [userName, setUserName] = useState("");
+  const [password, setPassword] = useState("");
   return (
     <div className="box-layout">
       <div className="box-layout__box">
@@ -13,7 +20,9 @@ export const LoginPage = ({ startGoogleLogin, startFacebookLogin }) => {
           <div>
             <div className={"login-page__enclose"}>
               <input
-                type="email"
+                type="text"
+                value={userName}
+                onChange={(e) => setUserName(e.target.value)}
                 placeholder="Username"
                 className={"login-page__input"}
               />
@@ -21,7 +30,9 @@ export const LoginPage = ({ startGoogleLogin, startFacebookLogin }) => {
             <div className={"login-page__enclose"}>
               <input
                 type="password"
+                value={password}
                 placeholder="Password"
+                onChange={(e) => setPassword(e.target.value)}
                 className={"login-page__input"}
               />
             </div>
@@ -32,7 +43,9 @@ export const LoginPage = ({ startGoogleLogin, startFacebookLogin }) => {
             </div>
             <div>I have understood the terms and conditions</div>
           </div>
-          <button>Sign In</button>
+          <button onClick={() => startCheckLogin({ userName, password })}>
+            Sign In
+          </button>
         </div>
         <div className={"login-page__divider"}></div>
         <div>
@@ -58,7 +71,8 @@ export const LoginPage = ({ startGoogleLogin, startFacebookLogin }) => {
           </div>
         </div>
         <div className={"login-page__enclose "}>
-          Don't have account? <Link to={{ pathname: "" }}>Sign up now!!!</Link>
+          Don't have account?{" "}
+          <Link to={{ pathname: "/signup" }}>Sign up now!!!</Link>
         </div>
       </div>
     </div>
@@ -68,6 +82,8 @@ export const LoginPage = ({ startGoogleLogin, startFacebookLogin }) => {
 const mapDispatchToProps = (dispatch) => ({
   startFacebookLogin: () => dispatch(startFacebookLogin()),
   startGoogleLogin: () => dispatch(startGoogleLogin()),
+  startCheckLogin: ({ userName, password }) =>
+    dispatch(startCheckLogin({ userName, password })),
 });
 
 export default connect(undefined, mapDispatchToProps)(LoginPage);
