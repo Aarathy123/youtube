@@ -79,6 +79,11 @@ export const noLoginExists = () => ({
 export const startCheckLogin = (userData = {}) => {
   return (dispatch) => {
     const { userName = "", password = "" } = userData;
+    const format = /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]+/;
+    if (format.test(userName)) {
+      dispatch(noLoginExists());
+      return;
+    }
     return database
       .ref(`userInfo/${userName.toLowerCase().split(" ").join("")}`)
       .once("value")

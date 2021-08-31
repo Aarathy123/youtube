@@ -1,19 +1,54 @@
 import React from "react";
+import { connect } from "react-redux";
 
-// Only loads the YouTube player
+const DashboardPage = ({ videos }) => {
+  return (
+    <div style={{ height: "80%", margin: "3rem" }}>
+      {videos &&
+        videos.map(({ title, description, videoUrl, isPublic }) => {
+          return (
+            <div
+              style={{ display: "flex", marginTop: "2rem" }}
+              className="video__format"
+            >
+              <div>
+                <iframe
+                  className="youtube-player"
+                  style={{
+                    width: "280px",
+                    height: "250px",
+                    margin: "2rem 3rem",
+                    boxShadow: "3px 9px 5px grey",
+                  }}
+                  id="player"
+                  type="text/html"
+                  src={videoUrl}
+                  frameBorder="0"
+                ></iframe>
+              </div>
+              <div style={{ margin: "2rem" }}>
+                <h3>Title: {title}</h3>
+                <p>Description: {description}</p>
+                <div style={{ display: "flex" }}>
+                  <div>Public:</div>
+                  <div style={{ margin: "0.5rem" }}>
+                    <label class="switch">
+                      <input type="checkbox" checked={isPublic} />
+                      <span class="slider round"></span>
+                    </label>
+                  </div>
+                </div>
+              </div>
+            </div>
+          );
+        })}
+    </div>
+  );
+};
 
-const DashboardPage = () => (
-  <div>
-    {/* <ReactPlayer url="https://www.youtube.com/watch?v=ysz5S6PUM-U" /> */}
-    {/* <iframe
-      className="youtube-player"
-      id="player"
-      type="text/html"
-      src="https://www.youtube.com/embed/DXH-A_Ai23s?wmode=opaque&autohide=1&enablejsapi=1"
-      frameborder="0"
-    ></iframe> */}
-    Dashboard Page contents
-  </div>
-);
+const mapStateToProps = (state) => {
+  const videos = state.video;
+  return { videos };
+};
 
-export default DashboardPage;
+export default connect(mapStateToProps)(DashboardPage);

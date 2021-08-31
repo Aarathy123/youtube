@@ -59,11 +59,16 @@ const AddVideoForm = (props) => {
     }
   };
   return (
-    <div className="video__fullPage">
+    <div>
       <form onSubmit={onSubmit}>
         {error && error.length > 0 && <p className="form__error">{error}</p>}
-        <div>
-          <h3 style={{ textAlign: "center" }}>Add New Video</h3>
+        <div className="video__new">
+          <h3
+            style={{ textAlign: "center", textShadow: "2px 2px burlywood" }}
+            className="video__visibility"
+          >
+            Add New Video
+          </h3>
           <div style={{ textAlign: "center" }}>
             <div
               style={{
@@ -127,8 +132,8 @@ const AddVideoForm = (props) => {
               </div>
             </div>
           </div>
-          <div className="wrapper">
-            <button>Save</button>
+          <div className="wrapper video__saveBtn">
+            <button className="video__buttonStyle">Save</button>
           </div>
           {videoUrl && (
             <div className="video__videoVerification">

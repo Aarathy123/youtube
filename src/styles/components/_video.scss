@@ -4,7 +4,7 @@
 }
 
 .video__format {
-  background-color: fade-out($color: white, $amount: 0.7);
+  background-color: fade-out($color: white, $amount: 0.3);
   width: 100%;
   border-radius: 1rem;
   border-color: azure;
@@ -14,6 +14,14 @@
   background-color: fade-out($color: red, $amount: 0.7);
 }
 
+.video__enclose {
+  display: contents;
+}
+.video__new {
+  width: 100%;
+  background-color: fade-out($color: gray, $amount: 0.7);
+}
+
 .video__title {
   width: 40%;
   height: 5rem;
@@ -21,13 +29,24 @@
   border-color: azure;
 }
 
+.video__saveBtn {
+  margin: 2rem;
+  height: 5rem;
+  display: grid;
+}
+
+.video__buttonStyle {
+  border-radius: 5rem;
+}
 .video__fullPage {
   background-image: linear-gradient(
       rgba(255, 255, 255, 0.5),
       rgba(255, 255, 255, 0.5)
     ),
-    url(/images/addVideo.jpg);
-  height: 660px;
+    url(/images/bg.jpg);
+  height: 750px;
+  background-position: center;
+  background-repeat: no-repeat;
 }
 
 .video__url {

@@ -29,9 +29,9 @@ export const startAddVideo = (videoData = {}) => {
   };
 };
 
-export const setVideos = (expenses) => ({
+export const setVideos = (videos) => ({
   type: "SET_VIDEOS",
-  expenses,
+  videos,
 });
 
 export const startSetVideos = () => {

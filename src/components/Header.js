@@ -9,8 +9,8 @@ export const Header = (props) => (
     <div>
       <div className="header__content">
         <Link className="header__title" to="/dashboard">
-          <img className="header__titlepic" src="/images/favicon.png" />
-          <h1>Video Connect</h1>
+          <img className="header__titlepic" src="/images/videoLogo2.PNG" />
+          {/* <h1>Video Connect</h1> */}
         </Link>
         {history.location.pathname !== "/newVideo" && (
           <div className="header__upload">

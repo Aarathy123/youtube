@@ -19,11 +19,14 @@
 }
 
 .header__titlepic {
-  width: 4rem;
-  height: 4rem;
+  width: 15rem;
   margin-top: 0.7rem;
+  margin-left: 0.7rem;
 }
 
 .header__upload {
-  padding-left: 100rem;
+  padding-left: 75%;
+  @media (max-width: $desktop-breakpoint) {
+    padding-left: 40%;
+  }
 }

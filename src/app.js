@@ -9,6 +9,7 @@ import AppRouter, { history } from "./routes/AppRouter";
 import { Provider } from "react-redux";
 import { firebase } from "./firebase/firebase";
 import LoadingPage from "./components/LoadingPage";
+import { startSetVideos } from "./actions/video";
 
 const store = configureStore();
 
@@ -31,10 +32,12 @@ firebase.auth().onAuthStateChanged((user) => {
     store.dispatch(
       login((user && user.uid) || sessionStorage.getItem("userId"))
     );
-    renderApp();
-    if (history.location.pathname === "/") {
-      history.push("/dashboard");
-    }
+    store.dispatch(startSetVideos()).then(() => {
+      renderApp();
+      if (history.location.pathname === "/") {
+        history.push("/dashboard");
+      }
+    });
   } else {
     store.dispatch(logout());
     renderApp();

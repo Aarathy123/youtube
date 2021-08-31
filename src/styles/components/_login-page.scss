@@ -45,6 +45,12 @@
   margin-bottom: $m-size;
 }
 
+.login-page__noLogin {
+  margin: 0;
+  font-size: 2rem;
+  color: red;
+}
+
 .loginBtn {
   box-sizing: border-box;
   position: relative;

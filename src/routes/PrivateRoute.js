@@ -12,7 +12,7 @@ export const PrivateRoute = ({
     {...rest}
     component={(props) =>
       isAuthenticated ? (
-        <div>
+        <div className="video__fullPage">
           <Header /> <Component {...props} />
         </div>
       ) : (
