@@ -16,7 +16,7 @@ export const startAddVideo = (videoData = {}) => {
     } = videoData;
     const video = { title, videoUrl, description, isPublic };
     return database
-      .ref(`users/${uid}/videos`)
+      .ref(`users/videos/${uid}`)
       .push(video)
       .then((ref) => {
         dispatch(
@@ -38,7 +38,7 @@ export const startSetVideos = () => {
   return (dispatch, getState) => {
     const uid = getState().auth.uid;
     return database
-      .ref(`users/${uid}/videos`)
+      .ref(`users/videos/${uid}`)
       .once("value")
       .then((snapshot) => {
         const videos = [];
@@ -55,3 +55,34 @@ export const startSetVideos = () => {
       });
   };
 };
+
+export const getAllVideos = () => {
+  return (dispatch) => {
+    return database
+      .ref(`users/videos`)
+      .once("value")
+      .then((snapshot) => {
+        const videos = [];
+        snapshot.forEach((childSnapShot) => {
+          childSnapShot.forEach((child) => {
+            videos.push({
+              id: child.key,
+              ...child.val(),
+            });
+          });
+        });
+        return videos;
+      })
+      .then((videos) => {
+        return dispatch(setVideos(videos));
+      });
+  };
+};
+
+export const setOpenFilter = () => ({
+  type: "OPEN_FILTER",
+});
+
+export const setCloseFilter = () => ({
+  type: "CLOSE_FILTER",
+});

@@ -6188,6 +6188,11 @@ react-addons-shallow-compare@15.6.0:
     fbjs "^0.8.4"
     object-assign "^4.1.0"
 
+react-callout@^0.1.1:
+  version "0.1.1"
+  resolved "https://registry.yarnpkg.com/react-callout/-/react-callout-0.1.1.tgz#08af845a67c6b1abaf13563eb09fc9cc93b654e3"
+  integrity sha1-CK+EWmfGsauvE1Y+sJ/JzJO2VOM=
+
 react-dates@12.7.0:
   version "12.7.0"
   resolved "https://registry.npmjs.org/react-dates/-/react-dates-12.7.0.tgz"

@@ -25,8 +25,15 @@
 }
 
 .header__upload {
-  padding-left: 75%;
+  padding-left: 70%;
   @media (max-width: $desktop-breakpoint) {
-    padding-left: 40%;
+    padding-left: 55%;
+  }
+}
+
+.header__filter {
+  margin: 1.1rem;
+  @media (max-width: $desktop-breakpoint) {
+    margin: 3.1rem 1.1rem;
   }
 }
