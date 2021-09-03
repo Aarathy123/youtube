@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 const AddVideoForm = (props) => {
   const [videoUrl, setVideoUrl] = useState("");
@@ -7,11 +7,25 @@ const AddVideoForm = (props) => {
   const [description, setDescription] = useState("");
   const [isPrivate, setIsPrivate] = useState(false);
   const [isPublic, setIsPublic] = useState(true);
+  const [isYoutube, setIsYoutube] = useState(true);
+  const [isFaceBook, setIsFaceBook] = useState(false);
+  const [isVimeo, setIsVimeo] = useState(false);
   const [error, setError] = useState("");
+  const [facebookEmbed, setFacebookEmbed] = useState("");
   const getVideoLink = (e) => {
     let url = "";
     if (e) {
-      url = `https://www.youtube.com/embed/${e}?wmode=opaque&autohide=1&enablejsapi=1`;
+      if (isYoutube) {
+        const videoId = getYoutubeId(e);
+        url = `https://www.youtube.com/embed/${videoId}?wmode=opaque&autohide=1&enablejsapi=1`;
+      } else if (isVimeo) {
+        const vimeoId = getVimeoId(e);
+        url = `https://player.vimeo.com/video/${vimeoId}?h=923afc4753`;
+      } else if (isFaceBook) {
+        setFacebookEmbed(e);
+        document.getElementById("facebook").innerHTML = e;
+        return;
+      }
       setVideoUrl(url);
       setDisplayUrl(e);
     } else {
@@ -19,6 +33,40 @@ const AddVideoForm = (props) => {
       setDisplayUrl("");
     }
   };
+  const getYoutubeId = (url) => {
+    const regExp =
+      /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|&v=)([^#&?]*).*/;
+    const match = url.match(regExp);
+    return match && match[2].length === 11 ? match[2] : null;
+  };
+  const getVimeoId = (url) => {
+    const match = /vimeo.*\/(\d+)/i.exec(url);
+    if (match) {
+      return match[1];
+    }
+  };
+  const setVideoPlatform = (type) => {
+    switch (type) {
+      case "youtube":
+        setIsYoutube(!isYoutube);
+        setIsVimeo(false);
+        setIsFaceBook(false);
+        break;
+      case "facebook":
+        setIsYoutube(false);
+        setIsVimeo(false);
+        setIsFaceBook(!isFaceBook);
+        break;
+      case "vimeo":
+        setIsYoutube(false);
+        setIsVimeo(!isVimeo);
+        setIsFaceBook(false);
+        break;
+    }
+  };
+  useEffect(() => {
+    getVideoLink(displayUrl);
+  }, [isYoutube, isFaceBook, isVimeo]);
   const setVisibility = (value, type) => {
     switch (type) {
       case "private":
@@ -87,7 +135,7 @@ const AddVideoForm = (props) => {
               <input
                 className="video__videoId"
                 type="text"
-                placeholder="Video ID"
+                placeholder="Video URL (embed for facebook)"
                 value={displayUrl}
                 onChange={(e) => setDisplayUrl(e.target.value)}
                 onBlur={(e) => getVideoLink(e.target.value)}
@@ -95,15 +143,54 @@ const AddVideoForm = (props) => {
               <div className="video__details">
                 <div className="video__format">
                   <div>
-                    Youtube Url: https://www.youtube.com/watch?v=
-                    <span className="video__id">xxxxxxxx</span>
+                    Youtube Url:{" "}
+                    <span className="video__id">
+                      https://www.youtube.com/watch?v= xxxxxxxx
+                    </span>
                   </div>
                   <div>
-                    Youtube Short Url: https://youtu.be/
-                    <span className="video__id">xxxxxxxx</span>
+                    Youtube Short Url:{" "}
+                    <span className="video__id">
+                      https://youtu.be/ xxxxxxxx
+                    </span>
+                  </div>
+                  <div>
+                    Vimeo Url:{" "}
+                    <span className="video__id">
+                      https://vimeo.com/ xxxxxxxx
+                    </span>
+                  </div>
+                  <div>
+                    Facebook Url:
+                    <span className="video__id">
+                      Give the embed URL {"<iframe.... />"}
+                    </span>
                   </div>
                 </div>
               </div>
+            </div>
+            <div className="video__visibility">
+              <span style={{ fontWeight: "bold" }}>
+                Uploading from:&nbsp;&nbsp;&nbsp;&nbsp;
+              </span>
+              <input
+                type="checkbox"
+                checked={isYoutube}
+                onChange={() => setVideoPlatform("youtube")}
+              />
+              &nbsp;&nbsp; Youtube&nbsp;&nbsp; &nbsp;&nbsp;
+              <input
+                type="checkbox"
+                checked={isFaceBook}
+                onChange={() => setVideoPlatform("facebook")}
+              />
+              &nbsp;&nbsp; Facebook&nbsp;&nbsp; &nbsp;&nbsp;
+              <input
+                type="checkbox"
+                checked={isVimeo}
+                onChange={() => setVideoPlatform("vimeo")}
+              />
+              &nbsp;&nbsp; Vimeo&nbsp;&nbsp; &nbsp;&nbsp;
             </div>
             <div className="video__url">
               <textarea
@@ -138,18 +225,21 @@ const AddVideoForm = (props) => {
           {videoUrl && (
             <div className="video__videoVerification">
               <div>
-                <iframe
-                  className="youtube-player"
-                  style={{
-                    width: "280px",
-                    height: "250px",
-                    boxShadow: "3px 9px 5px grey",
-                  }}
-                  id="player"
-                  type="text/html"
-                  src={videoUrl}
-                  frameBorder="0"
-                ></iframe>
+                {isFaceBook && <div id="facebook"></div>}
+                {!isFaceBook && (
+                  <iframe
+                    className="youtube-player"
+                    style={{
+                      width: "280px",
+                      height: "250px",
+                      boxShadow: "3px 9px 5px grey",
+                    }}
+                    id="player"
+                    type="text/html"
+                    src={videoUrl}
+                    frameBorder="0"
+                  ></iframe>
+                )}
               </div>
               <div className="video__question">
                 Is this your video ?&nbsp;&nbsp;&nbsp;

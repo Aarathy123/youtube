@@ -102,6 +102,7 @@ export const startCheckLogin = (userData = {}) => {
           const userDetails = userPresent[0];
           if (userDetails.password === password) {
             sessionStorage.setItem("userId", userDetails.id);
+            sessionStorage.setItem("userName", userDetails.name);
             dispatch(login(userDetails.id));
           } else {
             dispatch(noLoginExists());

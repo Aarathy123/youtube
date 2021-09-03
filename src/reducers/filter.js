@@ -2,7 +2,7 @@ import moment from "moment";
 
 const filtersReducerDefaultState = {
   title: "",
-  uploadDate: moment().startOf("month"),
+  uploadDate: "",
 };
 export default (state = filtersReducerDefaultState, action) => {
   switch (action.type) {

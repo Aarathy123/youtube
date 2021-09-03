@@ -1,3 +1,4 @@
+import moment from "moment";
 import database from "../firebase/firebase";
 
 export const addVideo = (video) => ({
@@ -7,24 +8,26 @@ export const addVideo = (video) => ({
 
 export const startAddVideo = (videoData = {}) => {
   return (dispatch, getState) => {
-    const uid = getState().auth.uid;
+    const auth = getState().auth;
     const {
       title = "",
       videoUrl = "",
       description = 0,
       isPublic = 0,
     } = videoData;
-    const video = { title, videoUrl, description, isPublic };
+    const video = {
+      title,
+      videoUrl,
+      description,
+      isPublic,
+      uploadedDate: moment().format("YYYY-MM-DD"),
+      uploadedBy: sessionStorage.getItem("userName") || "",
+    };
     return database
-      .ref(`users/videos/${uid}`)
+      .ref(`users/videos/${auth.uid}`)
       .push(video)
       .then((ref) => {
-        dispatch(
-          addVideo({
-            id: ref.key,
-            ...video,
-          })
-        );
+        dispatch(startSetVideos());
       });
   };
 };

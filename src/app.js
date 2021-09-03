@@ -29,6 +29,9 @@ ReactDOM.render(<LoadingPage />, document.getElementById("app"));
 
 firebase.auth().onAuthStateChanged((user) => {
   if (user || sessionStorage.getItem("userId") !== null) {
+    if (user) {
+      sessionStorage.setItem("userName", user.displayName);
+    }
     store.dispatch(
       login((user && user.uid) || sessionStorage.getItem("userId"))
     );

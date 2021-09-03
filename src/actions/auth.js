@@ -28,6 +28,7 @@ export const startLogout = () => {
     firebase.auth().signOut();
     window.location = "/";
     sessionStorage.removeItem("userId");
+    sessionStorage.removeItem("userName");
     return;
   };
 };

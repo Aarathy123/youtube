@@ -8,7 +8,7 @@ export default (videos, { title, uploadDate }) => {
           ? video.title.toLowerCase().includes(title.toLowerCase())
           : true;
         const dateMatch = uploadDate
-          ? moment(video.uploadDate).isSameOrAfter(uploadDate, "day")
+          ? moment(video.uploadedDate).isSameOrAfter(uploadDate, "day")
           : true;
         return titleMatch && dateMatch;
       })) ||
