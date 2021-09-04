@@ -30,6 +30,7 @@ const VideoList = ({
   isGlobal,
   startRemoveComment,
   updateVideo,
+  uid,
 }) => {
   const [video, setVideo] = useState({});
   const [modalOpen, setModalOpen] = useState(false);
@@ -74,14 +75,11 @@ const VideoList = ({
     setVideoComment(comment);
   }, [comment]);
   return (
-    <div style={{ height: "80%", margin: "3rem", display: "flex" }}>
+    <div className="video__container">
       {videos &&
         videos.map((video) => {
           return (
-            <div
-              style={{ display: "flex", margin: "2rem", width: "50%" }}
-              className="video__format"
-            >
+            <div className="video__format">
               <div>
                 <img
                   src={video.thumbnail}
@@ -93,34 +91,44 @@ const VideoList = ({
                 <h3>{video.title}</h3>
                 <div style={{ display: "flex" }}>
                   <div>
-                    <div style={{ marginBottom: "0.5rem" }}>
-                      Description: {video.description}
-                    </div>
-                    <div style={{ display: "flex" }}>
-                      <div>Public:</div>
-                      <div style={{ margin: "0.5rem" }}>
-                        <label class="switch">
-                          <input
-                            type="checkbox"
-                            checked={video.isPublic}
-                            onChange={() =>
-                              updateVideo({
-                                ...video,
-                                isPublic: !video.isPublic,
-                                isGlobal,
-                              })
-                            }
-                          />
-                          <span class="slider round"></span>
-                        </label>
+                    <div
+                      className={
+                        (uid === video.uploadedById &&
+                          "video__detailsWithPublic") ||
+                        "video__withoutPublic"
+                      }
+                    >
+                      <div style={{ marginBottom: "1rem" }}>
+                        Description: {video.description}
                       </div>
-                    </div>
-                    <div style={{ marginBottom: "1rem" }}>
-                      Uploaded By: {video.uploadedBy}
-                    </div>
-                    <div style={{ marginTop: "1rem" }}>
-                      Uploaded Date:{" "}
-                      {moment(video.uploadedDate).format("DD/MM/YYYY")}
+                      {uid === video.uploadedById && (
+                        <div style={{ display: "flex" }}>
+                          <div>Public:</div>
+                          <div style={{ margin: "0.5rem" }}>
+                            <label class="switch">
+                              <input
+                                type="checkbox"
+                                checked={video.isPublic}
+                                onChange={() =>
+                                  updateVideo({
+                                    ...video,
+                                    isPublic: !video.isPublic,
+                                    isGlobal,
+                                  })
+                                }
+                              />
+                              <span class="slider round"></span>
+                            </label>
+                          </div>
+                        </div>
+                      )}
+                      <div style={{ marginBottom: "1rem" }}>
+                        Uploaded By: {video.uploadedBy}
+                      </div>
+                      <div style={{ marginTop: "1rem" }}>
+                        Uploaded Date:{" "}
+                        {moment(video.uploadedDate).format("DD/MM/YYYY")}
+                      </div>
                     </div>
                     <div style={{ display: "flex", marginTop: "2rem" }}>
                       <div style={{ marginLeft: "3rem" }}>
@@ -222,7 +230,8 @@ const VideoList = ({
   );
 };
 const mapStateToProps = (state) => ({
-  videos: selectVideos(state.video.videos, state.filters),
+  videos: selectVideos(state.video.videos, state.filters, state.auth.uid),
+  uid: state.auth.uid,
   comment: state.video.comment,
   commentKey: state.video.commentKey,
   isGlobal: state.video.isGlobal,

@@ -24,6 +24,7 @@ export const startAddVideo = (videoData = {}) => {
       thumbnail,
       uploadedDate: moment().format("YYYY-MM-DD"),
       uploadedBy: sessionStorage.getItem("userName") || "",
+      uploadedById: auth.uid,
     };
     return database
       .ref(`users/videos/${auth.uid}`)
