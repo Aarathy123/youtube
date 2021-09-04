@@ -57,7 +57,7 @@ const SignUpForm = (props) => {
       alert("Please confirm the password by entering the correct one");
     } else if (!disclaimer) {
       alert("Please check the disclaimer checkbox");
-    } else if (!name) {
+    } else if (!name || props.userPresent) {
       alert("Please enter the name");
     } else if (!emailId) {
       alert("Please enter the Email Id");

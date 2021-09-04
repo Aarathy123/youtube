@@ -1,5 +1,5 @@
 import moment from "moment";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
 import { setTitleFilter, setDateFilter } from "../actions/filter";
 import { getAllVideos, startSetVideos } from "../actions/video";
@@ -29,6 +29,9 @@ const VideoFilters = ({
     setDateFilter(value);
   };
 
+  useEffect(() => {
+    setDateFilter(date);
+  }, []);
   const onUploadSelect = (e) => {
     setUploader(e.target.value);
     if (e.target.value === "global") {

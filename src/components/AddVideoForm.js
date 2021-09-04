@@ -10,16 +10,19 @@ const AddVideoForm = (props) => {
   const [isYoutube, setIsYoutube] = useState(true);
   const [isFaceBook, setIsFaceBook] = useState(false);
   const [isVimeo, setIsVimeo] = useState(false);
+  const [youtubeVideoId, setYoutubeVideoId] = useState("");
+  const [vimeoVideoId, setVimoeVideoId] = useState("");
   const [error, setError] = useState("");
-  const [facebookEmbed, setFacebookEmbed] = useState("");
   const getVideoLink = (e) => {
     let url = "";
     if (e) {
       if (isYoutube) {
         const videoId = getYoutubeId(e);
+        setYoutubeVideoId(videoId);
         url = `https://www.youtube.com/embed/${videoId}?wmode=opaque&autohide=1&enablejsapi=1`;
       } else if (isVimeo) {
         const vimeoId = getVimeoId(e);
+        setVimoeVideoId(vimeoId);
         url = `https://player.vimeo.com/video/${vimeoId}?h=923afc4753`;
       } else if (isFaceBook) {
         setFacebookEmbed(e);
@@ -97,11 +100,19 @@ const AddVideoForm = (props) => {
     if (!description || !title || !videoUrl) {
       setError("Please provide Title, VideoId and Description");
     } else {
+      let thumbnail = "";
+      if (isYoutube) {
+        thumbnail = `http://img.youtube.com/vi/${youtubeVideoId}/0.jpg`;
+      }
+      if (isVimeo) {
+        thumbnail = `http://vimeo.com/api/v2/video/${vimeoVideoId}.json?callback=showThumb`;
+      }
       props.onSubmit({
         title,
         videoUrl,
         description,
         isPublic,
+        thumbnail,
       });
       setError("");
     }

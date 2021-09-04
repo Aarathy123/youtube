@@ -7,6 +7,7 @@
   background-color: fade-out($color: white, $amount: 0.3);
   width: 100%;
   border-radius: 1rem;
+  box-shadow: 3px 9px 5px grey;
   border-color: azure;
 }
 
@@ -79,6 +80,13 @@
   }
 }
 
+.video__thumbnail {
+  width: 280px;
+  height: 250px;
+  margin: 2rem 3rem;
+  box-shadow: 3px 9px 5px grey;
+  cursor: pointer;
+}
 .video__description {
   width: 30%;
   height: 10rem;
@@ -125,4 +133,62 @@
 .video__applyBtn {
   padding: 1rem;
   text-align: right;
+}
+
+// COLORS
+$softorange: #f4a259;
+$tomatored: #f25c66;
+$mediumblu: #1e272d;
+
+body {
+  background-color: $mediumblu;
+}
+
+.close-container {
+  cursor: pointer;
+}
+
+.leftright {
+  height: 2px;
+  width: 25px;
+  position: absolute;
+  margin-top: 24px;
+  background-color: $softorange;
+  border-radius: 2px;
+  transform: rotate(45deg);
+  left: 95%;
+  transition: all 0.3s ease-in;
+}
+
+.rightleft {
+  height: 2px;
+  width: 25px;
+  position: absolute;
+  margin-top: 24px;
+  background-color: $softorange;
+  border-radius: 2px;
+  transform: rotate(-45deg);
+  transition: all 0.3s ease-in;
+  left: 95%;
+}
+
+label.close {
+  color: white;
+  font-family: Helvetica, Arial, sans-serif;
+  font-size: 0.6em;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  transition: all 0.3s ease-in;
+  opacity: 0;
+}
+.close-container:hover .leftright {
+  transform: rotate(-45deg);
+  background-color: $tomatored;
+}
+.close-container:hover .rightleft {
+  transform: rotate(45deg);
+  background-color: $tomatored;
+}
+.close-container:hover label {
+  opacity: 1;
 }
