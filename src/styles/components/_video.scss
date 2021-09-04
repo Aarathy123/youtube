@@ -200,6 +200,11 @@ label.close {
   opacity: 1;
 }
 
+.video__containerNoVideo {
+  height: 80%;
+  margin: 1rem;
+  display: flex;
+}
 .video__container {
   display: flex;
   flex-wrap: wrap;

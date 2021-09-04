@@ -75,7 +75,12 @@ const VideoList = ({
     setVideoComment(comment);
   }, [comment]);
   return (
-    <div className="video__container">
+    <div
+      className={
+        (videos && videos.length > 0 && "video__container") ||
+        "video__containerNoVideo"
+      }
+    >
       {videos &&
         videos.map((video) => {
           return (
