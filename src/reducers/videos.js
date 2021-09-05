@@ -8,9 +8,9 @@ export default (state = videosReducerDefaultState, action) => {
     case "CLOSE_FILTER":
       return { ...state, openFilter: false };
     case "SET_VIDEO_COMMENT":
-      return { ...state, ...action.comment };
+      return { ...state, comments: action.comments };
     case "ERASE_COMMENT":
-      return { ...state, comment: "" };
+      return { ...state, comments: [] };
     default:
       return state;
   }

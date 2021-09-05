@@ -1,6 +1,6 @@
 import moment from "moment";
 
-export default (videos, { title, uploadDate }, uid) => {
+export default (videos, { title, uploadDate, liked }, uid) => {
   return (
     (videos &&
       videos.filter((video) => {
@@ -12,7 +12,14 @@ export default (videos, { title, uploadDate }, uid) => {
         const dateMatch = uploadDate
           ? moment(video.uploadedDate).isSameOrAfter(uploadDate, "day")
           : true;
-        return titleMatch && dateMatch && isPublic;
+        const isLiked = liked === "liked";
+        const isDisLiked = liked === "disliked";
+        const likeMatch = isLiked
+          ? video.likes && video.likes.indexOf(uid) >= 0
+          : isDisLiked
+          ? video.dislikes && video.dislikes.indexOf(uid) >= 0
+          : true;
+        return titleMatch && dateMatch && isPublic && likeMatch;
       })) ||
     []
   );

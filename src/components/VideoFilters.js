@@ -1,19 +1,29 @@
 import moment from "moment";
 import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
-import { setTitleFilter, setDateFilter } from "../actions/filter";
-import { getAllVideos, startSetVideos } from "../actions/video";
+import Modal from "react-modal";
+import {
+  setTitleFilter,
+  setDateFilter,
+  setLikedFilter,
+} from "../actions/filter";
+import { getAllVideos, startSetVideos, setCloseFilter } from "../actions/video";
 
 const VideoFilters = ({
   openFilter,
+  closeFilter,
   setTitleFilter,
   getAllVideos,
   startSetVideos,
   setDateFilter,
+  setLikedFilter,
 }) => {
   const [title, setTitleFilterValue] = useState("");
-  const [uploader, setUploader] = useState("local");
-  const [date, setDate] = useState(moment().format("YYYY-MM-DD"));
+  const [uploader, setUploader] = useState("global");
+  const [date, setDate] = useState(
+    moment().startOf("month").format("YYYY-MM-DD")
+  );
+  const [liked, setLiked] = useState("");
   const onTitleFilterChange = (value) => {
     setTitleFilterValue(value);
     if (value && value.length > 0) {
@@ -29,6 +39,10 @@ const VideoFilters = ({
     setDateFilter(value);
   };
 
+  const onLikedSelect = (e) => {
+    setLiked(e.target.value);
+    setLikedFilter(e.target.value);
+  };
   useEffect(() => {
     setDateFilter(date);
   }, []);
@@ -42,11 +56,19 @@ const VideoFilters = ({
   };
   return (
     <div>
-      {openFilter && (
+      <Modal
+        isOpen={openFilter}
+        style={{
+          content: { height: "20%", width: "100%", top: "10%", left: "0" },
+          overlay: { backgroundColor: "rgba(255, 255, 255, 0.3)" },
+        }}
+        onRequestClose={() => closeFilter()}
+        ariaHideApp={false}
+      >
         <div className="video__filters">
           <div className="video__searchby">Search BY:</div>
           <div style={{ display: "flex" }}>
-            <div style={{ width: "33.33%", margin: "3rem" }}>
+            <div style={{ width: "25%", margin: "3rem" }}>
               <span>Title: </span>
               <input
                 type="search"
@@ -56,7 +78,7 @@ const VideoFilters = ({
                 onChange={(e) => onTitleFilterChange(e.target.value)}
               />
             </div>
-            <div style={{ width: "33.33%", margin: "3rem" }}>
+            <div style={{ width: "25%", margin: "3rem" }}>
               <span>Date of Upload: </span>
               <input
                 type="date"
@@ -65,7 +87,7 @@ const VideoFilters = ({
                 onChange={(e) => onDateFilterChange(e.target.value)}
               />
             </div>
-            <div style={{ width: "33.33%", margin: "3rem" }}>
+            <div style={{ width: "25%", margin: "3rem" }}>
               <span>Uploaded: </span>
               <select
                 onChange={onUploadSelect}
@@ -76,9 +98,21 @@ const VideoFilters = ({
                 <option value="global">Global</option>
               </select>
             </div>
+            <div style={{ width: "25%", margin: "3rem" }}>
+              <span>Liked: </span>
+              <select
+                onChange={onLikedSelect}
+                value={liked}
+                style={{ width: "100%" }}
+              >
+                <option value="">Select</option>
+                <option value="liked">Liked</option>
+                <option value="disliked">Disliked</option>
+              </select>
+            </div>
           </div>
         </div>
-      )}
+      </Modal>
     </div>
   );
 };
@@ -87,6 +121,8 @@ const mapDispatchToProps = (dispatch) => ({
   getAllVideos: () => dispatch(getAllVideos()),
   startSetVideos: () => dispatch(startSetVideos()),
   setDateFilter: (uploadDate) => dispatch(setDateFilter(uploadDate)),
+  closeFilter: () => dispatch(setCloseFilter()),
+  setLikedFilter: (liked) => dispatch(setLikedFilter(liked)),
 });
 const mapStateToProps = (state) => ({
   openFilter: state.video.openFilter,

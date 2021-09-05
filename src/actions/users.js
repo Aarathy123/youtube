@@ -1,5 +1,6 @@
 import database from "../firebase/firebase";
 import { login } from "./auth";
+import { getAllVideos } from "./video";
 export const addUser = (user) => ({
   type: "ADD_USER",
   user,
@@ -104,6 +105,7 @@ export const startCheckLogin = (userData = {}) => {
             sessionStorage.setItem("userId", userDetails.id);
             sessionStorage.setItem("userName", userDetails.name);
             dispatch(login(userDetails.id));
+            dispatch(getAllVideos());
           } else {
             dispatch(noLoginExists());
           }

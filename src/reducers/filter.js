@@ -16,6 +16,11 @@ export default (state = filtersReducerDefaultState, action) => {
         ...state,
         uploadDate: action.uploadDate,
       };
+    case "SET_LIKED_FILTER":
+      return {
+        ...state,
+        liked: action.liked,
+      };
     default:
       return state;
   }
