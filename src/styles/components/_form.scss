@@ -1,12 +1,14 @@
-.form{
-    display: flex;
-    flex-direction: column;
-    > * {
-        margin-bottom: $m-size;
-    }
+.form {
+  display: flex;
+  flex-direction: column;
+  > * {
+    margin-bottom: $m-size;
+  }
 }
 
-.form__error{
-    margin:  0 0 $m-size 0;
-    font-style: italic;
+.form__error {
+  margin: 1rem;
+  font-style: italic;
+  font-weight: 400 !important;
+  text-align: center;
 }

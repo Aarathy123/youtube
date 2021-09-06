@@ -7,6 +7,10 @@ export default (state = videosReducerDefaultState, action) => {
       return { ...state, openFilter: true };
     case "CLOSE_FILTER":
       return { ...state, openFilter: false };
+    case "OPEN_NEW_VIDEO":
+      return { ...state, openNewVideo: true };
+    case "CLOSE_NEW_VIDEO":
+      return { ...state, openNewVideo: false };
     case "SET_VIDEO_COMMENT":
       return { ...state, comments: action.comments };
     case "ERASE_COMMENT":

@@ -218,10 +218,10 @@ const VideoList = ({
       {(!videos || videos.length === 0) && (
         <div
           className="video__format"
-          style={{ height: `64vh`, textAlign: "center" }}
+          style={{ height: `100vh`, textAlign: "center" }}
         >
           <div
-            style={{ margin: "24rem", fontSize: "larger", fontWeight: "700" }}
+            style={{ margin: "40rem", fontSize: "larger", fontWeight: "700" }}
           >
             No Videos Available
           </div>
@@ -357,7 +357,7 @@ const VideoList = ({
           }}
           id="player"
           type="text/html"
-          src={"https://videoshub.com/videos/25311429"}
+          src={video.videoUrl}
           frameBorder="0"
           allowfullscreen="allowfullscreen"
         ></iframe>

@@ -4,20 +4,16 @@ import { connect } from "react-redux";
 import { startLogout } from "../actions/auth";
 import { history } from "../routes/AppRouter";
 import { FaFilter } from "react-icons/fa";
-import { setCloseFilter, setOpenFilter } from "../actions/video";
+import { MdLibraryAdd } from "react-icons/md";
+
+import {
+  setCloseFilter,
+  setOpenFilter,
+  onNewVideoClick,
+} from "../actions/video";
 export const Header = (props) => {
-  const [openFilter, setOpenFilter] = useState(false);
-  const onFilterClick = () => {
-    if (openFilter) {
-      setOpenFilter(!openFilter);
-      props.closeFilter();
-    } else {
-      setOpenFilter(!openFilter);
-      props.openFilter();
-    }
-  };
   return (
-    <header className="header">
+    <header className={`header ${!props.openNewVideo && "header__ZIndex"}`}>
       <div>
         <div className="header__content">
           <Link className="header__title" to="/dashboard">
@@ -27,12 +23,10 @@ export const Header = (props) => {
           {history.location.pathname !== "/newVideo" && (
             <div style={{ display: "flex" }} className="header__upload">
               <div className="header__filter">
-                <FaFilter onClick={onFilterClick} />
+                <FaFilter onClick={props.openFilter} />
               </div>
-              <div style={{ margin: "1rem" }}>
-                <Link className=" header__title" to="/newVideo">
-                  Upload New Video
-                </Link>
+              <div className="header__newVideo">
+                <MdLibraryAdd size="22" onClick={props.onNewVideoClick} />
               </div>
             </div>
           )}
@@ -49,6 +43,10 @@ const mapDispatchToProps = (dispatch) => ({
   startLogout: () => dispatch(startLogout()),
   openFilter: () => dispatch(setOpenFilter()),
   closeFilter: () => dispatch(setCloseFilter()),
+  onNewVideoClick: () => dispatch(onNewVideoClick()),
 });
 
-export default connect(undefined, mapDispatchToProps)(Header);
+const mapStateToProps = (state) => ({
+  openNewVideo: state.video.openNewVideo,
+});
+export default connect(mapStateToProps, mapDispatchToProps)(Header);

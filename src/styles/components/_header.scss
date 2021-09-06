@@ -1,5 +1,10 @@
 .header {
   background: cornsilk;
+  position: fixed;
+  width: 100%;
+}
+.header__ZIndex {
+  z-index: 100;
 }
 
 .header__title {
@@ -25,12 +30,21 @@
 }
 
 .header__upload {
-  padding-left: 70%;
+  padding-left: 79%;
   @media (max-width: $desktop-breakpoint) {
     padding-left: 55%;
   }
+  @media (max-width: $desktop-midbreakout) {
+    padding-left: 60%;
+  }
 }
 
+.header__newVideo {
+  margin: 1rem;
+  @media (max-width: $desktop-breakpoint) {
+    margin-top: 3rem;
+  }
+}
 .header__filter {
   margin: 1.1rem;
   @media (max-width: $desktop-breakpoint) {

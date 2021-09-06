@@ -1,4 +1,6 @@
 import React, { useEffect, useState } from "react";
+import Modal from "react-modal";
+import { setVideoComment } from "../actions/video";
 
 const AddVideoForm = (props) => {
   const [videoUrl, setVideoUrl] = useState("");
@@ -45,6 +47,7 @@ const AddVideoForm = (props) => {
   };
 
   const setVideoPlatform = (type) => {
+    setError("");
     switch (type) {
       case "youtube":
         setIsYoutube(!isYoutube);
@@ -60,6 +63,7 @@ const AddVideoForm = (props) => {
     getVideoLink(displayUrl);
   }, [isYoutube, isVimeo]);
   const setVisibility = (value, type) => {
+    setError("");
     switch (type) {
       case "private":
         setIsPrivate(value);
@@ -102,17 +106,45 @@ const AddVideoForm = (props) => {
         description,
         isPublic,
         thumbnail,
+        isGlobal: props.isGlobal,
       });
       setError("");
+      closeNewVideo();
     }
   };
+  const closeNewVideo = () => {
+    props.closeNewVideo();
+    setVideoComment("");
+    setTitle("");
+    setDescription("");
+    setDisplayUrl("");
+    setVideoUrl("");
+  };
   return (
-    <div>
+    <Modal
+      isOpen={props.openNewVideo}
+      style={{
+        content: {
+          height: "100%",
+          top: "0",
+          backgroundColor: "rgba(255, 255, 255, 0.95)",
+          paddingLeft: "1%",
+          paddingTop: "0",
+          paddingBottom: "0",
+        },
+        overlay: { backgroundColor: "rgba(255, 255, 255, 0.3)" },
+      }}
+      onRequestClose={() => closeNewVideo()}
+      ariaHideApp={false}
+    >
       <form onSubmit={onSubmit}>
-        {error && error.length > 0 && <p className="form__error">{error}</p>}
         <div className="video__new">
           <h3
-            style={{ textAlign: "center", textShadow: "2px 2px burlywood" }}
+            style={{
+              textAlign: "center",
+              textShadow: "2px 2px burlywood",
+              margin: "0",
+            }}
             className="video__visibility"
           >
             Add New Video
@@ -128,7 +160,10 @@ const AddVideoForm = (props) => {
                 type="text"
                 placeholder="Title"
                 value={title}
-                onChange={(e) => setTitle(e.target.value)}
+                onChange={(e) => {
+                  setError("");
+                  setTitle(e.target.value);
+                }}
               />
             </div>
             <div className="video__url">
@@ -137,7 +172,10 @@ const AddVideoForm = (props) => {
                 type="text"
                 placeholder="Video URL (embed for facebook)"
                 value={displayUrl}
-                onChange={(e) => setDisplayUrl(e.target.value)}
+                onChange={(e) => {
+                  setError("");
+                  setDisplayUrl(e.target.value);
+                }}
                 onBlur={(e) => getVideoLink(e.target.value)}
               />
               <div className="video__details">
@@ -183,7 +221,10 @@ const AddVideoForm = (props) => {
                 className="video__description"
                 placeholder="Description"
                 value={description}
-                onChange={(e) => setDescription(e.target.value)}
+                onChange={(e) => {
+                  setError("");
+                  setDescription(e.target.value);
+                }}
               />
               <div className="video__privatePublic">
                 <div className="video__visibility">
@@ -227,11 +268,17 @@ const AddVideoForm = (props) => {
               <div className="video__question">
                 Is this your video ?&nbsp;&nbsp;&nbsp;
               </div>
+              {error && error.length > 0 && (
+                <div className="form__error video__question">{error}</div>
+              )}
             </div>
+          )}
+          {!videoUrl && error && error.length > 0 && (
+            <p className="form__error video__question">{error}</p>
           )}
         </div>
       </form>
-    </div>
+    </Modal>
   );
 };
 

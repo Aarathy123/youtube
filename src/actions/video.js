@@ -10,6 +10,7 @@ export const addVideo = (video) => ({
 export const startAddVideo = (videoData = {}) => {
   return (dispatch, getState) => {
     const auth = getState().auth;
+    const isGlobal = videoData.isGlobal;
     const {
       title = "",
       videoUrl = "",
@@ -31,7 +32,11 @@ export const startAddVideo = (videoData = {}) => {
       .ref(`users/videos/${auth.uid}`)
       .push(video)
       .then((ref) => {
-        dispatch(startSetVideos());
+        if (isGlobal) {
+          dispatch(getAllVideos());
+        } else {
+          dispatch(startSetVideos());
+        }
       });
   };
 };
@@ -172,6 +177,13 @@ export const setOpenFilter = () => ({
   type: "OPEN_FILTER",
 });
 
+export const onNewVideoClick = () => ({
+  type: "OPEN_NEW_VIDEO",
+});
+
+export const closeNewVideo = () => ({
+  type: "CLOSE_NEW_VIDEO",
+});
 export const setCloseFilter = () => ({
   type: "CLOSE_FILTER",
 });

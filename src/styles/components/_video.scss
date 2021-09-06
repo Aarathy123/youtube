@@ -10,6 +10,7 @@
 .video__withoutPublic {
   height: 90%;
 }
+
 .video__format {
   background-color: fade-out($color: white, $amount: 0.3);
   width: 100%;
@@ -146,10 +147,21 @@
 // COLORS
 $softorange: #f4a259;
 $tomatored: #f25c66;
-$mediumblu: #1e272d;
+
+html {
+  margin: 0px;
+  height: 100vh;
+  padding: 0;
+  width: 100%;
+  position: relative;
+}
 
 body {
-  background-color: $mediumblu;
+  margin: 0;
+  box-sizing: border-box;
+  min-height: 100vh;
+  width: 100%;
+  background-color: black;
 }
 
 .close-container {
@@ -203,17 +215,29 @@ label.close {
 
 .video__containerNoVideo {
   height: 80%;
-  margin: 1rem;
   display: flex;
 }
 .video__container {
   display: flex;
   flex-wrap: wrap;
   height: 80%;
-  margin: 1rem;
+  top: 9rem;
+  position: relative;
+  background-image: linear-gradient(
+      rgba(255, 255, 255, 0.5),
+      rgba(255, 255, 255, 0.5)
+    ),
+    url(/images/bg.jpg);
+  @media (max-width: $desktop-breakpoint) {
+    top: 11rem;
+  }
   > div {
     display: flex;
     width: 48%;
+    @media (max-width: $desktop-breakpoint) {
+      width: 100%;
+      top: 11rem;
+    }
     margin: 1rem;
     box-sizing: border-box;
   }
