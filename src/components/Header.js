@@ -16,27 +16,32 @@ export const Header = (props) => {
     <header className={`header ${!props.openNewVideo && "header__ZIndex"}`}>
       <div>
         <div className="header__content">
-          <Link className="header__title" to="/dashboard">
+          <Link to="/dashboard">
             <img className="header__titlepic" src="/images/videoLogo2.PNG" />
             {/* <h1>Video Connect</h1> */}
           </Link>
-          {history.location.pathname !== "/newVideo" && (
-            <div style={{ display: "flex" }} className="header__upload">
-              <div className="header__filter">
-                <FaFilter onClick={props.openFilter} title="Filter" />
+          <div className="header__upload">
+            {history.location.pathname !== "/newVideo" && (
+              <div style={{ display: "flex" }}>
+                <div className="header__filter">
+                  <FaFilter onClick={props.openFilter} title="Filter" />
+                </div>
+                <div className="header__newVideo">
+                  <MdLibraryAdd
+                    size="22"
+                    onClick={props.onNewVideoClick}
+                    title="Add New Video"
+                  />
+                </div>
               </div>
-              <div className="header__newVideo">
-                <MdLibraryAdd
-                  size="22"
-                  onClick={props.onNewVideoClick}
-                  title="Add New Video"
-                />
-              </div>
-            </div>
-          )}
-          <button className="button__logout button" onClick={props.startLogout}>
-            Logout
-          </button>
+            )}
+            <button
+              className="button__logout button"
+              onClick={props.startLogout}
+            >
+              Logout
+            </button>
+          </div>
         </div>
       </div>
     </header>

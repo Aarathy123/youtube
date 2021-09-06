@@ -7,19 +7,10 @@
   z-index: 100;
 }
 
-.header__title {
-  text-decoration: none;
-  display: flex;
-  h1 {
-    margin: 0;
-    padding-left: $s-size;
-  }
-}
-
 .header__content {
   display: flex;
-  justify-content: space-between;
   align-items: center;
+  justify-content: space-between;
   padding: $s-size 0;
 }
 
@@ -30,13 +21,9 @@
 }
 
 .header__upload {
-  padding-left: 79%;
-  @media (max-width: $desktop-breakpoint) {
-    padding-left: 55%;
-  }
-  @media (max-width: $desktop-midbreakout) {
-    padding-left: 60%;
-  }
+  display: flex;
+  justify-content: flex-end;
+  margin-right: 1rem;
 }
 
 .header__newVideo {
