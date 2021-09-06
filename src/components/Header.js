@@ -23,10 +23,14 @@ export const Header = (props) => {
           {history.location.pathname !== "/newVideo" && (
             <div style={{ display: "flex" }} className="header__upload">
               <div className="header__filter">
-                <FaFilter onClick={props.openFilter} />
+                <FaFilter onClick={props.openFilter} title="Filter" />
               </div>
               <div className="header__newVideo">
-                <MdLibraryAdd size="22" onClick={props.onNewVideoClick} />
+                <MdLibraryAdd
+                  size="22"
+                  onClick={props.onNewVideoClick}
+                  title="Add New Video"
+                />
               </div>
             </div>
           )}
