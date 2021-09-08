@@ -229,6 +229,10 @@ export const startRemoveVideo = (videoId, isGlobal) => {
       .ref(`users/videos/${uid}/${videoId}`)
       .remove()
       .then(() => {
+        database.ref(`users/comments/${videoId}`).remove();
+        return;
+      })
+      .then(() => {
         if (isGlobal) {
           dispatch(getAllVideos());
         } else {
