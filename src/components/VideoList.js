@@ -13,6 +13,7 @@ import {
   startSetDislike,
   removeLike,
   removeDislike,
+  startRemoveVideo,
 } from "../actions/video";
 import moment from "moment";
 import { BiCommentDetail } from "react-icons/bi";
@@ -23,7 +24,7 @@ import {
   AiFillDislike,
 } from "react-icons/ai";
 import { FiEdit } from "react-icons/fi";
-import { RiDeleteBin6Fill } from "react-icons/ri";
+import { RiDeleteBin6Fill, RiDeleteBin6Line } from "react-icons/ri";
 
 const VideoList = ({
   videos,
@@ -43,6 +44,7 @@ const VideoList = ({
   removeDislike,
   openNewVideo,
   openFilter,
+  startRemoveVideo,
 }) => {
   const [video, setVideo] = useState({});
   const [modalOpen, setModalOpen] = useState(false);
@@ -216,6 +218,14 @@ const VideoList = ({
                             : 0}
                         </div>
                       </div>
+                      {uid === video.uploadedById && (
+                        <div style={{ marginLeft: "3rem", cursor: "pointer" }}>
+                          <RiDeleteBin6Line
+                            size="22"
+                            onClick={() => startRemoveVideo(video.id, isGlobal)}
+                          />
+                        </div>
+                      )}
                     </div>
                   </div>
                 </div>
@@ -394,6 +404,8 @@ const mapDispatchToProps = (dispatch) => ({
   startSetDislike: (videoId) => dispatch(startSetDislike(videoId)),
   removeLike: (videoId) => dispatch(removeLike(videoId)),
   removeDislike: (videoId) => dispatch(removeDislike(videoId)),
+  startRemoveVideo: (videoId, isGlobal) =>
+    dispatch(startRemoveVideo(videoId, isGlobal)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(VideoList);

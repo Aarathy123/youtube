@@ -100,6 +100,8 @@ const AddVideoForm = (props) => {
       if (isVimeo) {
         thumbnail = `https://vumbnail.com/${vimeoVideoId}.jpg`;
       }
+      setError("");
+      closeNewVideo();
       props.onSubmit({
         title,
         videoUrl,
@@ -108,8 +110,6 @@ const AddVideoForm = (props) => {
         thumbnail,
         isGlobal: props.isGlobal,
       });
-      setError("");
-      closeNewVideo();
     }
   };
   const closeNewVideo = () => {

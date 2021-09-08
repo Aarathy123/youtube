@@ -222,6 +222,21 @@ export const startSetLike = (video) => {
   };
 };
 
+export const startRemoveVideo = (videoId, isGlobal) => {
+  return (dispatch, getState) => {
+    const uid = getState().auth.uid;
+    return database
+      .ref(`users/videos/${uid}/${videoId}`)
+      .remove()
+      .then(() => {
+        if (isGlobal) {
+          dispatch(getAllVideos());
+        } else {
+          dispatch(startSetVideos());
+        }
+      });
+  };
+};
 export const removeLike = (video) => {
   return (dispatch, getState) => {
     const videoData = { ...video };

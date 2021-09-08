@@ -9,7 +9,6 @@ class NewVideoPage extends React.Component {
   }
   onSubmit = (video) => {
     this.props.startAddVideo(video);
-    this.props.history.push("/");
   };
   render() {
     return (
