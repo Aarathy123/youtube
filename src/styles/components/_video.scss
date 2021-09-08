@@ -63,7 +63,7 @@
       rgba(255, 255, 255, 0.5)
     ),
     url(/images/bg.jpg);
-  min-height: 750px;
+  min-height: 100vh;
   height: 100%;
   background-repeat: no-repeat;
 }
@@ -221,7 +221,7 @@ label.close {
   display: flex;
   flex-wrap: wrap;
   height: 80%;
-  top: 9rem;
+  top: 15vh;
   position: relative;
   background-image: linear-gradient(
       rgba(255, 255, 255, 0.5),
@@ -229,7 +229,7 @@ label.close {
     ),
     url(/images/bg.jpg);
   @media (max-width: $desktop-breakpoint) {
-    top: 11rem;
+    top: 17.5vh;
   }
   > div {
     display: flex;

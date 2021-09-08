@@ -59,7 +59,7 @@ const VideoFilters = ({
       <Modal
         isOpen={openFilter}
         style={{
-          content: { height: "20%", width: "100%", top: "10%", left: "0" },
+          content: { height: "20%", width: "100%", top: "13%", left: "0" },
           overlay: { backgroundColor: "rgba(255, 255, 255, 0.3)" },
         }}
         onRequestClose={() => closeFilter()}

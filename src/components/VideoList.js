@@ -41,6 +41,8 @@ const VideoList = ({
   uid,
   removeLike,
   removeDislike,
+  openNewVideo,
+  openFilter,
 }) => {
   const [video, setVideo] = useState({});
   const [modalOpen, setModalOpen] = useState(false);
@@ -68,6 +70,12 @@ const VideoList = ({
     setModalCommentOpen(true);
   };
 
+  useEffect(() => {
+    if (openFilter || openNewVideo) {
+      setModalCommentOpen(false);
+      eraseComment();
+    }
+  }, [openFilter, openNewVideo]);
   const editComment = (commentData, editComment) => {
     const data = { ...commentData, comment: editComment, ...video };
     startEditComment(data);
@@ -239,7 +247,7 @@ const VideoList = ({
         }}
         ariaHideApp={false}
       >
-        <div style={{ height: "90%" }}>
+        <div style={{ height: "53vh" }}>
           <div>
             <h3>{video.title}</h3>
           </div>
@@ -371,6 +379,8 @@ const mapStateToProps = (state) => ({
   comments: state.video.comments,
   commentKey: state.video.commentKey,
   isGlobal: state.video.isGlobal,
+  openFilter: state.video.openFilter,
+  openNewVideo: state.video.openNewVideo,
 });
 
 const mapDispatchToProps = (dispatch) => ({
